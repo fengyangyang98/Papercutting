@@ -17,6 +17,7 @@ extension NSTouchBarItem.Identifier {
     static let toolButton = NSTouchBarItem.Identifier("paperCut.toolButton")
     static let cutButton = NSTouchBarItem.Identifier("paperCut.cutButton")
     static let showButton = NSTouchBarItem.Identifier("paperCut.showButton")
+    static let musicButton = NSTouchBarItem.Identifier("paperCut.musicButton")
 }
 
 public class PaperCutViewController : NSViewController {
@@ -28,7 +29,13 @@ public class PaperCutViewController : NSViewController {
                                          height: UIConfig.backgroundSize.height))
     
     let showButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.showButton, title: "Show", image: NSImage(named: NSImage.touchBarEnterFullScreenTemplateName)!, target: nil, action: #selector(show))
+    
+    let musicButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.musicButton, image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName)!, target: nil, action: #selector(mute))
+    
+    var controlView = NSSegmentedControl(images: [], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
+    
     let welcomeScene = WelcomeScene()
+        
     
     var player : AVAudioPlayer = {
         let backgroundMusicURL =  Bundle.main.url(forResource: "backgroundMusic", withExtension: "m4a")!
@@ -36,25 +43,20 @@ public class PaperCutViewController : NSViewController {
         return player
     }()
     
+    public init(image name: String = "") {
+        super.init(nibName: nil, bundle: nil)
+        welcomeScene.compareImageName = name
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public override func loadView() {
-        playBackgroundMusic()
-//        pauseBackgroundMusic()
         sceneView.layer?.backgroundColor = .black
         sceneView.presentScene(welcomeScene)
         self.view = sceneView
-    }
-
-    private func playBackgroundMusic() {
-        player.numberOfLoops = -1
-        player.volume = 0.05
-        player.prepareToPlay()
-        player.play()
-    }
-    
-    private func pauseBackgroundMusic() {
-        player.pause()
-    }
-    
+    }    
 }
 
 extension PaperCutViewController: NSTouchBarDelegate  {
@@ -72,8 +74,8 @@ extension PaperCutViewController: NSTouchBarDelegate  {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
         touchBar.customizationIdentifier = .paperCutHelperBar
-        touchBar.defaultItemIdentifiers = [.colorOption,.foldOption , .cutButton , .toolButton, .showButton]
-        touchBar.customizationAllowedItemIdentifiers = [.colorOption,.foldOption , .cutButton , .toolButton, .showButton]
+        touchBar.defaultItemIdentifiers = [.colorOption,.foldOption , .cutButton , .toolButton, .showButton, .musicButton]
+        touchBar.customizationAllowedItemIdentifiers = [.colorOption,.foldOption , .cutButton , .toolButton, .showButton, .musicButton]
         
         return touchBar
     }
@@ -151,27 +153,34 @@ extension PaperCutViewController: NSTouchBarDelegate  {
             let yingCutButtonIcon = NSImage(named: "ying")!
         
             
-            let controlView = NSSegmentedControl(images: [yangCutButtonIcon, yingCutButtonIcon], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
+            controlView = NSSegmentedControl(images: [yangCutButtonIcon, yingCutButtonIcon], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
             
             controlView.setWidth(65, forSegment: 0)
             controlView.setWidth(65, forSegment: 1)
             controlView.setSelected(true, forSegment: 0)
             cutButtonItem.view = controlView
+            
             return cutButtonItem
             
         case NSTouchBarItem.Identifier.showButton:
             self.showButtonItem.bezelColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
             return self.showButtonItem
             
+        case NSTouchBarItem.Identifier.musicButton:
+            return self.musicButtonItem
+            
+            
         default: return nil
         }
     }
+
     
     @objc
     func paperFold(sender: Any) {
-        guard let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene, let button = sender as? NSButtonTouchBarItem else {
+        guard let button = sender as? NSButtonTouchBarItem else {
             return
         }
+        let paperCutBoard = self.welcomeScene.nextScene
         if button.image == NSImage(named: "verticalFold") {
             paperCutBoard.verticalFold()
         } else if button.image == NSImage(named: "horizonFold") {
@@ -185,22 +194,22 @@ extension PaperCutViewController: NSTouchBarDelegate  {
     
     @objc
     func carve(sender: Any) {
-        guard let control = sender as? NSSegmentedControl, let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene else
+        guard let control = sender as? NSSegmentedControl else
         {
             return
         }
-        
+        let paperCutBoard = self.welcomeScene.nextScene
         let carveWay = (control.selectedSegment == 0 ? CarveWay.yang : CarveWay.ying)
         paperCutBoard.carve(carveWay: carveWay)
     }
     
     @objc
     func paperColor(sender: Any){
-        guard let piker = sender as? NSColorPickerTouchBarItem, let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene else
+        guard let piker = sender as? NSColorPickerTouchBarItem else
         {
             return
         }
-        
+        let paperCutBoard = self.welcomeScene.nextScene
         paperCutBoard.paperColor(color: piker.color.cgColor)
         self.showButtonItem.bezelColor = piker.color
         
@@ -208,26 +217,30 @@ extension PaperCutViewController: NSTouchBarDelegate  {
     
     @objc
     func clear() {
-        guard let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene else {
-            return
-        }
+        let paperCutBoard = self.welcomeScene.nextScene
         paperCutBoard.clear()
     }
 
     
     @objc
     func show() {
-        guard let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene else {
-            return
-        }
+       let paperCutBoard = self.welcomeScene.nextScene
         paperCutBoard.show()
     }
     
     @objc
     func undo() {
-        guard let paperCutBoard = self.welcomeScene.nextScene as? PaperCutScene else {
-            return
-        }
+        let paperCutBoard = self.welcomeScene.nextScene
         paperCutBoard.undo()
+    }
+    
+    @objc
+    func mute() {
+        let paperCutBoard = self.welcomeScene.nextScene
+        if paperCutBoard.playOrStopBGM() {
+             musicButtonItem.image = NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName)
+        } else {
+            musicButtonItem.image = NSImage(named: NSImage.touchBarAudioOutputMuteTemplateName)
+        }
     }
 }
