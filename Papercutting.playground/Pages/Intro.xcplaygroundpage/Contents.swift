@@ -46,5 +46,4 @@ import SpriteKit
 
 let paperCut = PaperCutViewController()
 PlaygroundPage.current.liveView = paperCut.view
-
-//: [Next](@next)
+//: [Next - Challenge](@next)

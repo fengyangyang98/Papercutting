@@ -1,7 +1,4 @@
 /*:
-# Papercutting
-
-
 ## Create your own art work
  
  At this stage, there is no rating, you can create your own papercutting art works as you like.

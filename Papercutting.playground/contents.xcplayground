@@ -3,6 +3,6 @@
     <pages>
         <page name='Intro'/>
         <page name='Challenge'/>
-        <page name='Createtion'/>
+        <page name='Creation'/>
     </pages>
 </playground>

@@ -6,19 +6,25 @@
  ## How to control?
  ![menu](menu.jpg)
  */
-
-
 import Cocoa
 import PlaygroundSupport
 import SpriteKit
 
 let challengePattern = [
-                            "🌟": "sample-start"
+                            "🌟": "start",
+                            "🟢": "circle"
                        ]
 
-let challenge = challengePattern["🌟"]
+/*:
+ You can put the pattern you want to challenge here.
+ */
+let challenge = challengePattern["🌟"] ?? ""
+let hintPath = "hint-" + challenge
 
-
-let paperCut = PaperCutViewController(image: challenge ?? "")
+let paperCut = PaperCutViewController(image: challenge)
 PlaygroundPage.current.liveView = paperCut.view
-//: [Next](@next)
+/*:
+ If you want to get some hint, show the hint pic there.
+*/
+let hint = NSImage(named: hintPath)
+//: [Next - Creation](@next)

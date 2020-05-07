@@ -208,7 +208,7 @@ public class PaperCutScene : SKScene{
             return "🌟🌟🌟"
         }
         let distance = paperCutBoard.distance(to: target)
-        if distance < 10 {
+        if distance < 19.5 {
             return "🌟🌟🌟"
         } else if (distance < 20) {
             return "🌟🌟"
