@@ -31,9 +31,7 @@ public class PaperCutViewController : NSViewController {
     let showButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.showButton, title: "Show", image: NSImage(named: NSImage.touchBarEnterFullScreenTemplateName)!, target: nil, action: #selector(show))
     
     let musicButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.musicButton, image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName)!, target: nil, action: #selector(mute))
-    
-    var controlView = NSSegmentedControl(images: [], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
-    
+
     let welcomeScene = WelcomeScene()
         
     
@@ -150,10 +148,10 @@ extension PaperCutViewController: NSTouchBarDelegate  {
             let cutButtonItem = NSCustomTouchBarItem(identifier: identifier)
             
             let yangCutButtonIcon = NSImage(named: "yang")!
-            let yingCutButtonIcon = NSImage(named: "ying")!
+            let yinCutButtonIcon = NSImage(named: "yin")!
         
             
-            controlView = NSSegmentedControl(images: [yangCutButtonIcon, yingCutButtonIcon], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
+            let controlView = NSSegmentedControl(images: [yangCutButtonIcon, yinCutButtonIcon], trackingMode: NSSegmentedControl.SwitchTracking.selectOne, target: nil, action: #selector(carve(sender:)))
             
             controlView.setWidth(65, forSegment: 0)
             controlView.setWidth(65, forSegment: 1)
@@ -199,7 +197,7 @@ extension PaperCutViewController: NSTouchBarDelegate  {
             return
         }
         let paperCutBoard = self.welcomeScene.nextScene
-        let carveWay = (control.selectedSegment == 0 ? CarveWay.yang : CarveWay.ying)
+        let carveWay = (control.selectedSegment == 0 ? CarveWay.yang : CarveWay.yin)
         paperCutBoard.carve(carveWay: carveWay)
     }
     

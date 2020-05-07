@@ -14,7 +14,7 @@ public enum Fold {
 }
 
 public enum CarveWay {
-    case ying
+    case yin
     case yang
 }
 
@@ -61,8 +61,8 @@ public class PaperCutBoard : NSView {
         }
         
         context.setLineWidth(CGFloat(2))
-        context.setStrokeColor(CGColor.white)
-        context.setFillColor(CGColor.white)
+        context.setStrokeColor(UIConfig.paperCutBoardBackgroudColor.cgColor)
+        context.setFillColor(UIConfig.paperCutBoardBackgroudColor.cgColor)
         
         lines.forEach { (line) in
             for (index, point) in line.line.enumerated() {

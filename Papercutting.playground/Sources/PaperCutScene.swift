@@ -26,7 +26,7 @@ public class PaperCutScene : SKScene{
         let board = PaperCutBoard(pointShape: [point1, point2, point3, point4])
         board.wantsLayer = true
         board.translatesAutoresizingMaskIntoConstraints = false
-        board.layer?.backgroundColor = #colorLiteral(red: 0.8133277297, green: 0.09545669705, blue: 0.1514813602, alpha: 1)
+        board.layer?.backgroundColor = UIConfig.paperColor.cgColor
         return board
     }()
     
@@ -36,9 +36,9 @@ public class PaperCutScene : SKScene{
     }
     
     public override func didMove(to view: SKView) {
+        self.backgroundColor = UIConfig.paperCutBoardBackgroudColor
         self.anchorPoint = UIConfig.backgroundPosition
         self.size = UIConfig.backgroundSize
-        self.backgroundColor = .white
         self.view?.layer?.cornerRadius = 5
         loadNodes()
     }
@@ -61,10 +61,11 @@ public class PaperCutScene : SKScene{
         scoreBoard.removeFromParent()
         if compareImageName == "" {
             scoreBoard.text = "🌟🌟🌟"
+            scoreBoard.fontSize =  CGFloat(45)
         } else {
-            scoreBoard.text = "Click SHOW, Get the rank"
+            scoreBoard.text = "Push SHOW, Get the rank"
+            scoreBoard.fontSize =  CGFloat(25)
         }
-        scoreBoard.fontSize =  CGFloat(30)
         scoreBoard.fontColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         scoreBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 8)
         scoreBoard.name = "scoreboard"
@@ -99,7 +100,7 @@ public class PaperCutScene : SKScene{
                 diagonalRightFold()
                 break
             case 34: // I
-                carve(carveWay: CarveWay.ying)
+                carve(carveWay: CarveWay.yin)
                 break
             case 0: // A
                 carve(carveWay: CarveWay.yang)
