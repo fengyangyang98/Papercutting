@@ -10,6 +10,7 @@ import Cocoa
 import PlaygroundSupport
 import SpriteKit
 
+
 let challengePattern = [
                             "🌟": "start",
                             "🟢": "circle"
@@ -20,6 +21,8 @@ let challengePattern = [
  */
 let challenge = challengePattern["🌟"] ?? ""
 let hintPath = "hint-" + challenge
+
+let target = NSImage(named: challenge)
 
 let paperCut = PaperCutViewController(image: challenge)
 PlaygroundPage.current.liveView = paperCut.view

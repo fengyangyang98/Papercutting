@@ -37,13 +37,21 @@
      * Z for undoing the previous operation
      * T for clearing the paper
      * M for palying / turning off the backgroung music
+ 
+ ## Let's start with a circle
+ 
+ Try to use the skills mentioned before to cut a circle pattern on the paper. Push the `Show` button on the touch bar or push the `S` on the keyboard to show your first-try work and get a ranking. Try to get at least two 🌟, or even three.
+ 
  */
-
-
 import Cocoa
 import PlaygroundSupport
 import SpriteKit
 
-let paperCut = PaperCutViewController()
+//: You can get the target pattern here:
+let target = NSImage(named: "circle")
+
+let paperCut = PaperCutViewController(image: "circle")
 PlaygroundPage.current.liveView = paperCut.view
+//: You can get some hints here if you want:
+let hint = NSImage(named: "hint-circle")
 //: [Next - Challenge](@next)

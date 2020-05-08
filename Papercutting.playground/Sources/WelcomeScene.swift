@@ -10,6 +10,9 @@ public class WelcomeScene: SKScene {
     private let cutIntro        = SKLabelNode(text: "Pick up the scissors. Cut along the dotted line.")
     
     private let fakePaper       = SKSpriteNode(color: UIConfig.paperColor , size: UIConfig.paperSize)
+    private var fackePaperCutBoarder             = SKShapeNode(rectOf: UIConfig.paperCutBoarderSize, cornerRadius: 5)
+    private var fakebg                           = SKSpriteNode(imageNamed: "bg.jpg", normalMapped: false)
+
         
     public let nextScene        = PaperCutScene()
     public var compareImageName = ""
@@ -19,7 +22,7 @@ public class WelcomeScene: SKScene {
     
     public override func didMove(to view: SKView) {
         // set the basic area size and position
-        self.backgroundColor = UIConfig.paperCutBoardBackgroudColor
+        self.backgroundColor = UIConfig.paperCutBackgroundColor
         self.anchorPoint = UIConfig.backgroundPosition
         self.size = UIConfig.backgroundSize
         self.view?.layer?.cornerRadius = 5
@@ -28,8 +31,18 @@ public class WelcomeScene: SKScene {
     
     public func loadTheNodes() {
         
+        fakebg.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 2)
+        fakebg.scale(to: CGSize(width: UIConfig.backgroundSize.width, height: UIConfig.backgroundSize.height))
+        fakebg.name = "bg"
+        addChild(fakebg)
+        
+        fackePaperCutBoarder.position = CGPoint(x: UIConfig.backgroundSize.width / 2,
+                                           y: UIConfig.backgroundSize.height - (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 5 - UIConfig.paperSize.height / 2)
+        fackePaperCutBoarder.fillColor = UIConfig.paperCutBoardBackgroudColor
+        addChild(fackePaperCutBoarder)
+        
         fakePaper.position = CGPoint(x: UIConfig.backgroundSize.width / 2,
-                                     y: UIConfig.backgroundSize.height - (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 4 - UIConfig.paperSize.height / 2)
+                                     y: UIConfig.backgroundSize.height - (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 5 - UIConfig.paperSize.height / 2)
         addChild(fakePaper)
                 
         topScreen.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height * 3 / 4)
@@ -76,7 +89,7 @@ public class WelcomeScene: SKScene {
     
 
     public override func mouseDown(with event: NSEvent) {
-        if abs(event.location(in: self).x - scissors.position.x) < 30,
+        if abs(event.location(in: self).x - scissors.position.x) < 45,
             abs(event.location(in: self).y - scissors.position.y) < 45 {
             drag = true
         }
@@ -110,7 +123,7 @@ public class WelcomeScene: SKScene {
         else {
             scissors.position = CGPoint(x: position.x, y: UIConfig.backgroundSize.height / 2)
             
-            if abs(position.x - UIConfig.backgroundSize.width) < 20 {
+            if abs(position.x - UIConfig.backgroundSize.width) < 40 {
                 let topVector = CGVector(dx: 0, dy: CGFloat(300000))
                 let buttomVector = CGVector(dx: 0, dy: CGFloat(-300000))
                 

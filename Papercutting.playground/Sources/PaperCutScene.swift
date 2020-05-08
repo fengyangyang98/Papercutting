@@ -9,6 +9,8 @@ public class PaperCutScene : SKScene{
     private var isPresent                   = false;
     private var scoreBoard                  = SKLabelNode(text: "Score:")
     private var finishBoard                 = SKLabelNode(text: "YOU DID IT, SHARE YOUR ART WITH YOUR FRIENDS.")
+    private var paperCutBoarder             = SKShapeNode(rectOf: UIConfig.paperCutBoarderSize, cornerRadius: 5)
+    private var bg                          = SKSpriteNode(imageNamed: "bg.jpg", normalMapped: false)
     
     private var player : AVAudioPlayer = {
         let backgroundMusicURL =  Bundle.main.url(forResource: "backgroundMusic", withExtension: "m4a")!
@@ -36,7 +38,7 @@ public class PaperCutScene : SKScene{
     }
     
     public override func didMove(to view: SKView) {
-        self.backgroundColor = UIConfig.paperCutBoardBackgroudColor
+        self.backgroundColor = UIConfig.paperCutBackgroundColor
         self.anchorPoint = UIConfig.backgroundPosition
         self.size = UIConfig.backgroundSize
         self.view?.layer?.cornerRadius = 5
@@ -49,33 +51,63 @@ public class PaperCutScene : SKScene{
             return
         }
         
+        bg.removeFromParent()
+        bg.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 2)
+        bg.scale(to: CGSize(width: UIConfig.backgroundSize.width, height: UIConfig.backgroundSize.height))
+        bg.name = "bg"
+        addChild(bg)
+        
+        paperCutBoarder.removeFromParent()
+        paperCutBoarder.position = CGPoint(x: UIConfig.backgroundSize.width / 2,
+                                           y: UIConfig.backgroundSize.height - (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 5 - UIConfig.paperSize.height / 2)
+        paperCutBoarder.fillColor = UIConfig.paperCutBoardBackgroudColor
+        addChild(paperCutBoarder)
+        
         view.addSubview(paperCutBoard)
         playBackgroundMusic()
         self.paperCutBoard.heightAnchor.constraint(equalToConstant: UIConfig.paperSize.height).isActive = true
         self.paperCutBoard.widthAnchor.constraint(equalToConstant: UIConfig.paperSize.width).isActive = true
         self.paperCutBoard.topAnchor.constraint(equalTo: view.topAnchor,
-                                                constant: (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 4).isActive = true
+                                                constant: (UIConfig.backgroundSize.height - UIConfig.paperSize.height) / 5).isActive = true
         self.paperCutBoard.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                      
                                                     constant: (UIConfig.backgroundSize.width - UIConfig.paperSize.width) / 2).isActive = true
+        
+        
+        
         scoreBoard.removeFromParent()
-        if compareImageName == "" {
-            scoreBoard.text = "🌟🌟🌟"
-            scoreBoard.fontSize =  CGFloat(45)
-        } else {
-            scoreBoard.text = "Push SHOW, Get the rank"
-            scoreBoard.fontSize =  CGFloat(25)
+        
+        scoreBoard.text = ""
+        
+        let presentAction = SKAction.run {
+            SKAction.wait(forDuration: 0.5)
+            
+            if self.compareImageName == "" {
+                self.scoreBoard.text = "🌟🌟🌟"
+                self.scoreBoard.fontSize =  CGFloat(45)
+            } else {
+                self.scoreBoard.text = "Push SHOW, Get the rank"
+                self.scoreBoard.fontSize =  CGFloat(25)
+            }
+            
         }
-        scoreBoard.fontColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        scoreBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 8)
+        let fadeInOut = SKAction.sequence([.fadeOut(withDuration: 0.1), presentAction, .fadeIn(withDuration: 0.3)])
+
+        
+
+        scoreBoard.fontColor = #colorLiteral(red: 0.4375018775, green: 0.5443386436, blue: 0.6065829396, alpha: 1)
+        scoreBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 7)
         scoreBoard.name = "scoreboard"
         scoreBoard.fontName = "Futura Medium Italic"
         addChild(scoreBoard)
+        scoreBoard.run(.`repeat`(fadeInOut, count: 1))
+        
         
         finishBoard.removeFromParent()
-        finishBoard.fontSize =  CGFloat(15)
-        finishBoard.fontColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        finishBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height * 4 / 64)
+        finishBoard.fontSize =  CGFloat(20)
+        finishBoard.fontColor = #colorLiteral(red: 0.4375018775, green: 0.5443386436, blue: 0.6065829396, alpha: 1)
+        finishBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 11)
+        finishBoard.fontName = "Helvetica Neue Regular"
         finishBoard.name = "finishBoard"
         addChild(finishBoard)
         finishBoard.isHidden = true
@@ -187,10 +219,10 @@ public class PaperCutScene : SKScene{
         scoreBoard.text = "\(rank)"
         scoreBoard.fontSize =  CGFloat(45)
         if rank == "🌟🌟🌟" {
-            finishBoard.text = "Perfect! Share it with your friends."
+            finishBoard.text = "Perfect!"
             finishBoard.isHidden = false
         } else if rank == "🌟🌟"{
-            finishBoard.text = "Greate! Share it with your friends."
+            finishBoard.text = "Greate!"
             finishBoard.isHidden = false
         } else {
             finishBoard.text = "Try harder!"
