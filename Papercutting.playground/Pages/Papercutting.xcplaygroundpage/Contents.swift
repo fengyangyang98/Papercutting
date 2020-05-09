@@ -40,18 +40,14 @@
  
  ## Let's start with a circle
  
- Try to use the skills mentioned before to cut a circle pattern on the paper. Push the `Show` button on the touch bar or push the `S` on the keyboard to show your first-try work and get a ranking. Try to get at least two 🌟, or even three.
+ Try to fold the paper and cut the paper in two different ways. Finally, you can unfold the paper by pressing the `DONE` button on the touch bar, or pressing the `S` key on the keyboard to see the final work. In the first two levels, you need to cut out a circle and a star, and when pressing `DONE`, you will get a rating for your work. Try to get at least two 🌟, or even three. You can click `H` for some tips. When `N` appears, you can click it to go to the next level.
  
  */
 import Cocoa
 import PlaygroundSupport
 import SpriteKit
 
-//: You can get the target pattern here:
-let target = NSImage(named: "circle")
-
-let paperCut = PaperCutViewController(image: "circle")
+let paperCut = PaperCutViewController()
 PlaygroundPage.current.liveView = paperCut.view
-//: You can get some hints here if you want:
-let hint = NSImage(named: "hint-circle")
-//: [Next - Challenge](@next)
+
+//:  ![gallery](gallery.png)

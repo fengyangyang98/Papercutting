@@ -28,7 +28,7 @@ public class PaperCutViewController : NSViewController {
                                          width: UIConfig.backgroundSize.width,
                                          height: UIConfig.backgroundSize.height))
     
-    let showButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.showButton, title: "Show", image: NSImage(named: NSImage.touchBarEnterFullScreenTemplateName)!, target: nil, action: #selector(show))
+    let showButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.showButton, title: "DONE", image: NSImage(named: NSImage.touchBarEnterFullScreenTemplateName)!, target: nil, action: #selector(show))
     
     let musicButtonItem = NSButtonTouchBarItem(identifier: NSTouchBarItem.Identifier.musicButton, image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName)!, target: nil, action: #selector(mute))
 
@@ -41,9 +41,9 @@ public class PaperCutViewController : NSViewController {
         return player
     }()
     
-    public init(image name: String = "") {
+    public init(level: Int = 1) {
         super.init(nibName: nil, bundle: nil)
-        welcomeScene.compareImageName = name
+        welcomeScene.level = 1
     }
     
     required init?(coder: NSCoder) {

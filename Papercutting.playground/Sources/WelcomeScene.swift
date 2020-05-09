@@ -4,6 +4,11 @@ import AppKit
 
 public class WelcomeScene: SKScene {
     
+    private let instruct        = SKLabelNode(text: "Try to fold and cut the paper. You can unfold the paper by pressing the DONE button on the touch bar, or pressing the S key on the keyboard to see the final work. In the first two levels , you need to cut out a circle and a star, and when pressing DONE, you will get a rating for your work. You can click H for some tips. When N appears, you can click it to go to the next level.")
+    private let instruct2       = SKLabelNode(text: "Click any place to start the game.")
+    private let instruct3       = SKLabelNode(text: "Papercutting")
+    private let instructBG      = SKSpriteNode(imageNamed: "insbg.jpg", normalMapped: false)
+    
     private let scissors        = SKLabelNode(text: "✂️")
     private let topScreen       = SKSpriteNode(imageNamed: "bgu.jpg", normalMapped: false)
     private let buttomScreen    = SKSpriteNode(imageNamed: "bgd.jpg", normalMapped: false)
@@ -15,7 +20,7 @@ public class WelcomeScene: SKScene {
 
         
     public let nextScene        = PaperCutScene()
-    public var compareImageName = ""
+    public var level            = 1
     
     private var drag            = false
     private var scissorsFixes   = false
@@ -69,13 +74,38 @@ public class WelcomeScene: SKScene {
         scissors.zRotation = .pi / 2
         scissors.name = "scissors"
         addChild(scissors)
+        
+        instructBG.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 2)
+        instructBG.scale(to: CGSize(width: UIConfig.backgroundSize.width, height: UIConfig.backgroundSize.height))
+        addChild(instructBG)
+        
+        instruct.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 4)
+        instruct.fontName = "Futura Medium Italic"
+        instruct.fontColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        instruct.fontSize = CGFloat(20)
+        instruct.preferredMaxLayoutWidth = CGFloat(UIConfig.backgroundSize.width * 3 / 4)
+        instruct.numberOfLines = 5
+        addChild(instruct)
+        
+        instruct2.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 8)
+        instruct2.fontName = "Futura Medium Italic"
+        instruct2.fontColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        instruct2.fontSize = CGFloat(25)
+        instruct2.run(.repeatForever(fadeInOut))
+        addChild(instruct2)
+        
+        instruct3.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height * 0.80)
+        instruct3.fontName = "Futura Medium Italic"
+        instruct3.fontColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        instruct3.fontSize = CGFloat(40)
+        addChild(instruct3)
     }
     
     private func disLoadNodes() {
         scissors.isHidden = true
         cutIntro.isHidden = true
         
-        nextScene.compareImageName = compareImageName
+        nextScene.level = level
         
         let view = self.view
         
@@ -89,17 +119,26 @@ public class WelcomeScene: SKScene {
     
 
     public override func mouseDown(with event: NSEvent) {
-        if abs(event.location(in: self).x - scissors.position.x) < 45,
-            abs(event.location(in: self).y - scissors.position.y) < 45 {
-            drag = true
+        if instructBG.isHidden {
+            if abs(event.location(in: self).x - scissors.position.x) < 45,
+                abs(event.location(in: self).y - scissors.position.y) < 45 {
+                drag = true
+            }
         }
     }
     
     public override func mouseUp(with event: NSEvent) {
-        if scissorsFixes == true {
-            scissors.position = CGPoint(x: 45, y: UIConfig.backgroundSize.height / 2)
+        if instructBG.isHidden {
+            if scissorsFixes == true {
+                scissors.position = CGPoint(x: 45, y: UIConfig.backgroundSize.height / 2)
+            }
+            drag = false
+        } else {
+            instructBG.isHidden = true
+            instruct.isHidden = true
+            instruct2.isHidden = true
+            instruct3.isHidden = true
         }
-        drag = false
     }
     
     public override func mouseDragged(with event: NSEvent) {

@@ -12,4 +12,13 @@ public class UIConfig {
     static public let paperCutBoardBackgroudColor : NSColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     static public let paperCutBackgroundColor : NSColor = #colorLiteral(red: 0.8774369359, green: 0.72767061, blue: 0.7377992272, alpha: 1)
     static public let paperColor : NSColor  = #colorLiteral(red: 0.7882352941, green: 0.2156862745, blue: 0.337254902, alpha: 1)
+    
+    
+    static public let hintButtonPosition = NSPoint(x: backgroundSize.width - 40, y: 110)
+    static public let hintButtonSize = NSSize(width: 30, height: 30)
+    
+    static public let nextButtonPosition = NSPoint(x: backgroundSize.width - 40, y: 70)
+    static public let nextButtonSize = NSSize(width: 30, height: 30)
+    
+    static public let hintImageScae = NSSize(width: 363, height: 150)
 }
