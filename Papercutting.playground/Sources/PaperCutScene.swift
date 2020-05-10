@@ -203,8 +203,8 @@ public class PaperCutScene : SKScene{
                 self.finishBoard.text = "Push DOWN, get the rank."
             } else {
                 self.scoreBoard.fontSize = CGFloat(20)
-                self.scoreBoard.text = " Create your own papercutting art works."
-                self.finishBoard.text = ""
+                self.scoreBoard.text = "Level-\(self.level)"
+                self.finishBoard.text = "Create your own papercutting art works."
             }
             self.hintButton.isHidden = false
         }
@@ -247,14 +247,14 @@ public class PaperCutScene : SKScene{
     public override func mouseUp(with event: NSEvent) {
         if hintBG.isHidden {
             let position = event.location(in: self)
-            if abs(position.y - UIConfig.hintButtonPosition.y ) <= UIConfig.hintButtonSize.width &&
-               abs(position.x - UIConfig.hintButtonPosition.x ) <= UIConfig.hintButtonSize.height {
+            if abs(position.y - UIConfig.hintButtonPosition.y ) <= UIConfig.hintButtonSize.height / 2 &&
+               abs(position.x - UIConfig.hintButtonPosition.x ) <= UIConfig.hintButtonSize.width / 2 {
                 showHints()
             }
             
             if nextButton.isHidden == false &&
-               abs(position.y - UIConfig.nextButtonPosition.y ) <= UIConfig.nextButtonSize.width &&
-               abs(position.x - UIConfig.nextButtonPosition.x ) <= UIConfig.nextButtonSize.height {
+               abs(position.y - UIConfig.nextButtonPosition.y ) <= UIConfig.nextButtonSize.height / 2 &&
+               abs(position.x - UIConfig.nextButtonPosition.x ) <= UIConfig.nextButtonSize.width / 2 {
                 nextLevel()
                 nextButton.isHidden = true
             }

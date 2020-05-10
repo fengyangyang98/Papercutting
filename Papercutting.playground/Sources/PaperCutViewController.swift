@@ -161,7 +161,7 @@ extension PaperCutViewController: NSTouchBarDelegate  {
             return cutButtonItem
             
         case NSTouchBarItem.Identifier.showButton:
-            self.showButtonItem.bezelColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+            self.showButtonItem.bezelColor = #colorLiteral(red: 0.4375018775, green: 0.5443386436, blue: 0.6065829396, alpha: 1)
             return self.showButtonItem
             
         case NSTouchBarItem.Identifier.musicButton:

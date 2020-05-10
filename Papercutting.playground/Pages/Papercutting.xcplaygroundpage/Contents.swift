@@ -43,11 +43,8 @@
  Try to fold the paper and cut the paper in two different ways. Finally, you can unfold the paper by pressing the `DONE` button on the touch bar, or pressing the `S` key on the keyboard to see the final work. In the first two levels, you need to cut out a circle and a star, and when pressing `DONE`, you will get a rating for your work. Try to get at least two 🌟, or even three. You can click `H` for some tips. When `N` appears, you can click it to go to the next level.
  
  */
-import Cocoa
 import PlaygroundSupport
-import SpriteKit
 
 let paperCut = PaperCutViewController()
 PlaygroundPage.current.liveView = paperCut.view
-
 //:  ![gallery](gallery.png)

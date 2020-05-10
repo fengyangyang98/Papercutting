@@ -15,10 +15,10 @@ public class UIConfig {
     
     
     static public let hintButtonPosition = NSPoint(x: backgroundSize.width - 40, y: 110)
-    static public let hintButtonSize = NSSize(width: 30, height: 30)
+    static public let hintButtonSize = NSSize(width: 53.7, height: 21.16)
     
     static public let nextButtonPosition = NSPoint(x: backgroundSize.width - 40, y: 70)
-    static public let nextButtonSize = NSSize(width: 30, height: 30)
+    static public let nextButtonSize = NSSize(width: 53.7, height: 21.16)
     
     static public let hintImageScae = NSSize(width: 363, height: 150)
 }
