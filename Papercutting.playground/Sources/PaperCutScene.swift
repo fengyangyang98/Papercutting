@@ -115,12 +115,12 @@ public class PaperCutScene : SKScene{
             SKAction.wait(forDuration: 2)
             self.scoreBoard.text = "Level-\(self.level): Cut a \"\(self.compareImageName)\"."
             self.scoreBoard.fontSize = CGFloat(20)
-            self.finishBoard.text = "Push DOWN, get the rank."
+            self.finishBoard.text = "Push DOWN, get the rating."
             self.hintButton.isHidden = false
         }
         let fadeInOut = SKAction.sequence([.fadeOut(withDuration: 0.1), presentAction, .fadeIn(withDuration: 0.3)])
         scoreBoard.fontColor = #colorLiteral(red: 0.4375018775, green: 0.5443386436, blue: 0.6065829396, alpha: 1)
-        scoreBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height / 7)
+        scoreBoard.position = CGPoint(x: UIConfig.backgroundSize.width / 2 , y: UIConfig.backgroundSize.height * 0.15)
         scoreBoard.name = "scoreboard"
         scoreBoard.fontName = "Futura Medium Italic"
         addChild(scoreBoard)
@@ -200,10 +200,12 @@ public class PaperCutScene : SKScene{
             if(self.level <= 2) {
                 self.scoreBoard.fontSize = CGFloat(20)
                 self.scoreBoard.text = "Level-\(self.level): Cut a \"\(self.compareImageName)\"."
-                self.finishBoard.text = "Push DOWN, get the rank."
+                self.finishBoard.fontSize =  CGFloat(20)
+                self.finishBoard.text = "Push DOWN, get the rating."
             } else {
                 self.scoreBoard.fontSize = CGFloat(20)
                 self.scoreBoard.text = "Level-\(self.level)"
+                self.finishBoard.fontSize =  CGFloat(20)
                 self.finishBoard.text = "Create your own papercutting art works."
             }
             self.hintButton.isHidden = false
@@ -365,26 +367,28 @@ public class PaperCutScene : SKScene{
         
         paperCutBoard.show()
         let rank = compare()
-        scoreBoard.text = "\(rank)"
-        scoreBoard.fontSize =  CGFloat(45)
+//        scoreBoard.text =
+//        scoreBoard.fontSize =  CGFloat(45)
+        finishBoard.fontSize = CGFloat(30)
         if rank == "🌟🌟🌟" {
             if level <= 2 {
                 nextButton.isHidden = false
             }
-            finishBoard.text = "Perfect!"
+            finishBoard.text = "\(rank)"
+            
             finishBoard.isHidden = false
         } else if rank == "🌟🌟"{
             if level <= 2 {
                 nextButton.isHidden = false
             }
-            finishBoard.text = "Greate!"
+            finishBoard.text = "\(rank)"
             finishBoard.isHidden = false
         } else {
             tryTime += 1
             if tryTime >= 3 {
                 nextButton.isHidden = false
             }
-            finishBoard.text = "Try harder!"
+            finishBoard.text = "\(rank)"
             finishBoard.isHidden = false
         }
  
