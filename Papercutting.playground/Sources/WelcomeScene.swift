@@ -5,7 +5,7 @@ import AppKit
 public class WelcomeScene: SKScene {
     
     private let instruct        = SKLabelNode(text: "Try to fold and cut the paper. You can unfold the paper by pressing the DONE button on the touch bar, or pressing the S key on the keyboard to see the final work. In the first two levels , you need to cut out a circle and a star, and when pressing DONE, you will get a rating for your work. You can click HINT for some tips. When NEXT appears, you can click it to go to the next level.")
-    private let instruct2       = SKLabelNode(text: "Click any place to start the game.")
+    private let instruct2       = SKLabelNode(text: "Click anywhere to start the game.")
     private let instruct3       = SKLabelNode(text: "Papercutting")
     private let instructBG      = SKSpriteNode(imageNamed: "insbg.jpg", normalMapped: false)
     

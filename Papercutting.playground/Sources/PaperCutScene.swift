@@ -18,7 +18,7 @@ public class PaperCutScene : SKScene{
     private var starHint                    = SKSpriteNode(imageNamed: "hint-start.png", normalMapped: false)
     private var circleHint                  = SKSpriteNode(imageNamed: "hint-circle.png", normalMapped: false)
     private var hintTitle                   = SKLabelNode(text: "Papercutting Hint")
-    private var goBack                      = SKLabelNode(text: "Click any place to go back to the game.")
+    private var goBack                      = SKLabelNode(text: "Click anywhere to go back to the game.")
     private var noHintInfo                  = SKLabelNode(text: "You finished all the challenges. You can create your own papercutting art works as you like.")
     
     // for level
@@ -189,10 +189,12 @@ public class PaperCutScene : SKScene{
             compareImageName = "circle"
             break
         case 2:
-            compareImageName = "start"
+            compareImageName = "star"
             break
         default:
             compareImageName = ""
+            hintTitle.text = "🎉 Congratulations 🎉"
+            showHints()
             break
         }
         let presentAction = SKAction.run {

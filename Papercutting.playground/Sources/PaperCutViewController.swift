@@ -111,12 +111,12 @@ extension PaperCutViewController: NSTouchBarDelegate  {
             
         case NSTouchBarItem.Identifier.diagonalLeftFoldLable:
             let diagonalLeftFoldLableIcon = NSImage(named: "diagonalLeftFold")!
-            let diagonalLeftFoldButton = NSButtonTouchBarItem(identifier: identifier,title: "Left diagonal", image: diagonalLeftFoldLableIcon, target: nil, action: #selector(paperFold(sender:)))
+            let diagonalLeftFoldButton = NSButtonTouchBarItem(identifier: identifier,title: "Upper left corner", image: diagonalLeftFoldLableIcon, target: nil, action: #selector(paperFold(sender:)))
             return diagonalLeftFoldButton
             
         case NSTouchBarItem.Identifier.diagonalRightFoldLable:
             let diagonalRightFoldLableIcon = NSImage(named: "diagonalRightFold")!
-            let diagonalRightFoldButton = NSButtonTouchBarItem(identifier: identifier,title: "Right diagonal",image: diagonalRightFoldLableIcon, target: nil, action: #selector(paperFold(sender:)))
+            let diagonalRightFoldButton = NSButtonTouchBarItem(identifier: identifier,title: "Upper right corner",image: diagonalRightFoldLableIcon, target: nil, action: #selector(paperFold(sender:)))
             return diagonalRightFoldButton
 
             
