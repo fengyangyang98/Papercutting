@@ -1,6 +1,6 @@
 # Papercutting
 
-![](./assets/gallery.png)
+[![asciicast](./assets/gallery.png)](https://youtu.be/QxQufi4qQm4)
 
 ## Introduction
 
