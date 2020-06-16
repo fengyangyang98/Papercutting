@@ -8,8 +8,6 @@ Papercutting is a kind of folk art in China that uses scissors or a knife to cut
 
 For me, paper-cutting is a unique memory, a memory that children receive praise from the teacher, and a memory of family reunion.
 
-> Tell us about the features and technologies you used in your Swift playground.
-
 In the Papercutting, I use AppKit, Vision, SpriteKit, AVFoundation and PlaygroundSupport.
 
 I use the NSView to realize the function of simulating folding paper and cutting paper. At the same time, I use NSTouchBarDelegate to implement the buttons on the touch bar. I use AppKit to implement some other functions, such as keyboard shortcuts, mouse clicks and drags.
@@ -30,7 +28,7 @@ There are two ways to cut paper. Yin carving is to engrave the outline lines tha
 
 ![](./assets/skills.png)
 
-### Beyond WWDC20
+## Beyond WWDC20
 
 > If you've shared or considered sharing your coding knowledge and enthusiasm for computer science with others, let us know.
 
